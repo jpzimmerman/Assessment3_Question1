@@ -27,5 +27,9 @@ namespace DevBuild.Assessment3_Question1 {
             IsAnAdult = Age >= AGE_OF_MAJORITY;
             return IsAnAdult;
         }
+
+        public override string ToString() {
+            return FirstName.PadRight(15) + LastName.PadRight(15) + Age.ToString().PadRight(6) + EmailAddress.ToString().PadRight(24);
+        }
     }
 }

@@ -38,6 +38,26 @@ namespace DevBuild.Utilities
             return tmp;
         }
 
+        public static string PromptUntilValidEntry(string message, params InformationType[] inputValidationFilters) {
+            string response = "";
+        LoopStart:
+            Console.Write(message);
+            while (String.IsNullOrEmpty(response)) {
+                response = Console.ReadLine().Trim();
+                if (String.IsNullOrEmpty(response)) {
+                    Console.Write(message);
+                    continue;
+                }
+                foreach (InformationType infoType in inputValidationFilters) {
+                    if (!Validation.ValidateInfo(infoType, response)) {
+                        response = "";
+                        goto LoopStart;
+                    }
+                }
+            }
+            return response;
+        }
+
         public static void PromptUntilValidEntry(string message, out string response, params InformationType[] inputValidationFilters)
         {
             response = "";
@@ -59,7 +79,6 @@ namespace DevBuild.Utilities
                         goto LoopStart;
                     }
                 }
-                return;
             }
             return;
         }
